@@ -10,4 +10,11 @@
   width: 22px;
   height: 19px;
   margin-left: auto;
+  flex-shrink: 0;
 }
+
+.elements__like:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
