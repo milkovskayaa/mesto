@@ -1,3 +1,4 @@
 .profile__info {
   display: flex;
+  align-items: baseline;
 }
