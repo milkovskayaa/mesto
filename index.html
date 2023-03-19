@@ -7,14 +7,26 @@
   <title>Mesto</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
-<body class="page">
-  <div class="page"></div>
+<body class="root">
+  <div class="page">
     <header class="header">
       <img src="./images/logo.svg" alt="Логотип" class="header__logo">
     </header>
     <main class="content">
-
+      <section class="profile">
+        <img src="./images/avatar.jpg" alt="Фотография профиля" class="profile__img">
+        <div class="profile__info">
+          <div class="profile__info-user">
+            <p class="profile__username">Жак-Ив Кусто</p>
+            <p class="profile__about">Исследователь океана</p>
+          </div>
+          <button class="profile__button profile__button_type_edit"></button>
+        </div>
+        <button class="profile__button profile__button_type_add"></button>
+      </section>
+      <section class="elements"></section>
     </main>
+  </div>
   <script src="./script/index.js"></script>
 </body>
 </html>
