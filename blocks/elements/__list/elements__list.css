@@ -1,8 +1,22 @@
 .elements__list {
   padding: 0;
+  margin: 0;
   list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   row-gap: 20px;
   column-gap: 17px;
+}
+
+@media screen and (max-width:1023px) {
+  .elements__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width:649px) {
+  .elements__list {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
 }

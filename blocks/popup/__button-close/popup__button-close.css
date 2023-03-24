@@ -10,11 +10,29 @@
   color: inherit;
   background-color: transparent;
   position: absolute;
-  bottom: 330px;
+  bottom: 338px;
   left: 438px;
 }
 
 .popup__button-close:hover {
   cursor: pointer;
   opacity: 0.6;
+}
+
+@media screen and (max-width:767px) {
+  .popup__button-close {
+    width: 25px;
+    height: 25px;
+    bottom: 340px;
+    left: 390px;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .popup__button-close {
+    width: 20px;
+    height: 20px;
+    bottom: 338px;
+    left: 265px;
+  }
 }

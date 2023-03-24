@@ -4,5 +4,17 @@
   font-size: 18px;
   line-height: 1.22;
   color: #545454;
-  padding-top: 67px;
 }
+
+@media screen and (max-width:1023px) {
+  .footer__copyright {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width:424px) {
+  .footer__copyright {
+    font-size: 14px;
+  }
+}
+

@@ -1,5 +1,13 @@
 .profile__img {
-  width: 168.75px;
+  max-width: 168.75px;
+  width: 100%;
   border-radius: 50%;
   margin-right: 30px;
+}
+
+@media screen and (max-width:1023px) {
+  .profile__img {
+    max-width: 120px;
+    margin-right: 0;
+  }
 }
