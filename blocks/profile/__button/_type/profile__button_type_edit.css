@@ -2,8 +2,6 @@
   width: 24px;
   height: 24px;
   background-image: url(../../../../images/pencil.svg);
-  background-repeat: no-repeat;
-  background-position: center;
   border: 1px solid #fff;
   margin-left: 18px;
 }
