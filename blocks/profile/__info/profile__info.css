@@ -5,7 +5,8 @@
 
 @media screen and (max-width:424px) {
   .profile__info {
+    min-width: 50px;
     max-width: 189px;
-    width: 100%;
+    margin: 0 auto;
   }
 }
