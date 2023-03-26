@@ -5,7 +5,7 @@ let nameInputPopup = popup.querySelector('.popup__input_type_name');
 let aboutInputPopup = popup.querySelector('.popup__input_type_about');
 let userName = document.querySelector('.profile__username');
 let userAbout = document.querySelector('.profile__about');
-let formElement = popup.querySelector('.popup__container');
+let formElement = popup.querySelector('.popup__form');
 
 // функция открытия попапа
 function openPopup() {
