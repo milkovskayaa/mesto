@@ -46,7 +46,9 @@ const buttonClosePopupAdd = popupAddCard.querySelector('.popup__button-close');
 const inputName = document.querySelector('.popup__input_type_name');
 const inputAbout = document.querySelector('.popup__input_type_about');
 
-const popupEditeProfileForm = document.querySelector('.popup__form');
+// формы попапов
+const popupEditeProfileForm = document.querySelector('.popup__form_type_edit');
+const popupAddCardForm = document.querySelector('.popup__form_type_add');
 
 const cardTemplate = document.getElementById('template-card');
 const cardsGrid = document.querySelector('.elements');
@@ -103,8 +105,8 @@ function createCardElement (cardItem) {
 };
 
 // функция добавления карточек в секцию
-function addCardElement(cardItem) {
-  cardsGrid.prepend(cardItem);
+function addCardElement(cardElement) {
+  cardsGrid.prepend(cardElement);
 };
 
 arrayCards.forEach((card) => {
@@ -112,6 +114,25 @@ arrayCards.forEach((card) => {
   addCardElement(element);
 });
 
+
+// функция добавления карточки из попапа
+function handleCardSubmit(event) {
+  event.preventDefault();
+
+  const nameCard = popupAddCardForm.querySelector('.popup__input_type_card-name');
+  const linkCard = popupAddCardForm.querySelector('.popup__input_type_link');
+
+  const name = nameCard.value;
+  const link = linkCard.value;
+
+  const cardData = {
+    name,
+    link
+  };
+
+  addCardElement(createCardElement(cardData));
+  closePopup(popupAddCard);
+};
 
 // обработчики событий кнопок
 
@@ -122,8 +143,10 @@ buttonEdit.addEventListener('click', () => {
   openPopup(popupEditProfile);
 });
 
-// нажатие на кнопку "сохранить" в попапе редактирования профиля
+// взаимодействия пользователя с формами попапов
 popupEditeProfileForm.addEventListener('submit', handleFormSubmit);
+
+popupAddCardForm.addEventListener('submit', handleCardSubmit);
 
 // нажатие на кнопку добавления карточки
 console.log(buttonAddCard)
