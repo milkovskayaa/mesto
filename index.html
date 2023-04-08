@@ -36,27 +36,39 @@
   <!-- попап редактирования профиля -->
   <div class="popup popup_edit-profile">
     <div class="popup__container">
+      <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form popup__form_type_edit" name="form-profile">
         <input type="text" name="username" class="popup__input popup__input_type_name" required placeholder="Введите имя">
         <input type="text" name="job" class="popup__input popup__input_type_about" required placeholder="Укажите свой род деятельности">
         <button type="submit" value="Сохранить" class="popup__submit" aria-label="Сохранить">Сохранить</button>
       </form>
-      <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
+      <!-- <button class="popup__button-close" aria-label="Закрыть" type="button"></button> -->
     </div>
   </div>
 
   <!-- попап добавления карточек -->
   <div class="popup popup_add-card">
     <div class="popup__container">
+      <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form popup__form_type_add" name="form-card">
         <input type="text" name="cardname" class="popup__input popup__input_type_card-name" required placeholder="Название">
         <input type="text" name="link" class="popup__input popup__input_type_link" required placeholder="Ссылка на картинку">
         <button type="submit" value="Создать" class="popup__submit" aria-label="Сохранить">Создать</button>
       </form>
-      <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
+      <!-- <button class="popup__button-close" aria-label="Закрыть" type="button"></button> -->
     </div>
+  </div>
+
+  <!-- попап просмотра фотографий -->
+  <div class="popup popup__card-image">
+    <div class="popup__image-container">
+      <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
+      <img role="button" src="https://images.unsplash.com/photo-1680709287234-bcba632aa663?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="Байкал" class="popup__image">
+      <p class="popup__image-name">Байкал</p>
+    </div>
+
   </div>
 
   <!-- шаблон карточек -->
@@ -71,6 +83,6 @@
     </div>
   </template>
 
-  <script src="./script/index.js"></script>
+  <script src="./script/index.js" type="module"></script>
 </body>
 </html>
