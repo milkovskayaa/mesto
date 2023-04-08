@@ -14,8 +14,8 @@ const buttonClosePopupAdd = popupAddCard.querySelector('.popup__button-close');
 const buttonCloseImagePopup = popupOpenImage.querySelector('.popup__button-close');
 
 // инпуты попапа редактирования профиля
-const inputName = document.querySelector('.popup__input_type_name');
-const inputAbout = document.querySelector('.popup__input_type_about');
+let inputName = document.querySelector('.popup__input_type_name');
+let inputAbout = document.querySelector('.popup__input_type_about');
 
 // формы попапов
 const popupEditeProfileForm = document.querySelector('.popup__form_type_edit');
