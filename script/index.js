@@ -3,8 +3,7 @@ import { arrayCards } from "./constants.js";
 // попапы
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const popupAddCard = document.querySelector('.popup_add-card');
-// const cardImage = document.querySelector('.elements__img');
-const popupOpenImage = document.querySelector('.popup__card-image');
+const popupOpenImage = document.querySelector('.popup_card-image');
 
 // кнопки
 const buttonEdit = document.querySelector('.profile__button_type_edit');
