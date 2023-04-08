@@ -25,4 +25,4 @@ const arrayCards = [
   }
 ];
 
-export {arrayCards};
+export { arrayCards };
