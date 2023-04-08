@@ -13,8 +13,8 @@ const buttonClosePopupAdd = popupAddCard.querySelector('.popup__button-close');
 const buttonCloseImagePopup = popupOpenImage.querySelector('.popup__button-close');
 
 // инпуты попапа редактирования профиля
-let inputName = document.querySelector('.popup__input_type_name');
-let inputAbout = document.querySelector('.popup__input_type_about');
+const inputName = document.querySelector('.popup__input_type_name');
+const inputAbout = document.querySelector('.popup__input_type_about');
 
 // формы попапов
 const popupEditeProfileForm = document.querySelector('.popup__form_type_edit');
@@ -26,8 +26,11 @@ const cardsGrid = document.querySelector('.elements');
 const image = document.querySelector('.popup__image');
 const caption = document.querySelector('.popup__image-name');
 // элементы профиля пользователя
-let userName = document.querySelector('.profile__username');
-let userAbout = document.querySelector('.profile__about');
+const userName = document.querySelector('.profile__username');
+const userAbout = document.querySelector('.profile__about');
+
+const nameCard = popupAddCardForm.querySelector('.popup__input_type_card-name');
+const linkCard = popupAddCardForm.querySelector('.popup__input_type_link');
 
 // функции
 
@@ -42,7 +45,7 @@ function closePopup(popup) {
 }
 
 // функция сохранения измененных данных, введенных пользователем
-function handleFormSubmit (evt) {
+function handleEditProfileFormSubmit (evt) {
   evt.preventDefault();
   userName.textContent = inputName.value;
   userAbout.textContent = inputAbout.value;
@@ -100,9 +103,6 @@ arrayCards.forEach((card) => {
 function handleCardSubmit(event) {
   event.preventDefault();
 
-  const nameCard = popupAddCardForm.querySelector('.popup__input_type_card-name');
-  const linkCard = popupAddCardForm.querySelector('.popup__input_type_link');
-
   const name = nameCard.value;
   const link = linkCard.value;
 
@@ -125,7 +125,7 @@ buttonEdit.addEventListener('click', () => {
 });
 
 // взаимодействия пользователя с формами попапов
-popupEditeProfileForm.addEventListener('submit', handleFormSubmit);
+popupEditeProfileForm.addEventListener('submit', handleEditProfileFormSubmit);
 
 popupAddCardForm.addEventListener('submit', handleCardSubmit);
 
