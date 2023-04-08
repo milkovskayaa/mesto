@@ -25,57 +25,15 @@
         <button class="profile__button profile__button_type_add" type="button" aria-label="Добавить"></button>
       </section>
       <section class="elements">
-        <ul class="elements__list">
-          <li class="elements__item">
-            <img src="./images/new-york.jpg" alt="Изображение Нью-Йорка" class="elements__img">
-            <div class="elements__about">
-              <h2 class="elements__name">Нью-Йорк</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img src="./images/Ischia.jpg" alt="Изображение пары, гуляющей по набережной" class="elements__img">
-            <div class="elements__about">
-              <h2 class="elements__name">Искья</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img src="./images/Kitzsteinhorn.jpg" alt="Изображение горы" class="elements__img">
-            <div class="elements__about">
-              <h2 class="elements__name">Кицштайнхорн</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img src="./images/san-francisco.jpg" alt="Изображение моста Золотые Ворота" class="elements__img">
-            <div class="elements__about">
-              <h2 class="elements__name">Сан-Франциско</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img src="./images/islande.jpg" alt="Изображение едущего автомобиля среди гор и реки" class="elements__img">
-            <div class="elements__about">
-              <h2 class="elements__name">Рейкьявик</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img src="./images/srilanka.jpg" alt="Изображение медитирующей девушки на горе" class="elements__img">
-            <div class="elements__about">
-              <h2 class="elements__name">Шри-Ланка</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-        </ul>
+
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <!-- попап редактирования профиля -->
+  <div class="popup popup_edit-profile">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="popup-form">
@@ -86,6 +44,32 @@
       <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
     </div>
   </div>
+
+  <!-- попап добавления карточек -->
+  <div class="popup popup_add-card">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form-card" name="popup-form">
+        <input type="text" name="cardname" class="popup__input popup__input_type_card-name" required placeholder="Название">
+        <input type="text" name="link" class="popup__input popup__input_type_link" required placeholder="Ссылка на картинку">
+        <button type="submit" value="Создать" class="popup__submit" aria-label="Сохранить">Создать</button>
+      </form>
+      <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
+    </div>
+  </div>
+
+  <!-- шаблон карточек -->
+  <template id="template-card">
+    <div class="elements__item">
+      <img src="#" alt="" class="elements__img">
+      <div class="elements__about">
+        <h2 class="elements__name"></h2>
+        <button class="elements__like" type="button" aria-label="Лайк"></button>
+        <button class="elements__delete" type="button" aria-label="Удалить"></button>
+      </div>
+    </div>
+  </template>
+
   <script src="./script/index.js"></script>
 </body>
 </html>
