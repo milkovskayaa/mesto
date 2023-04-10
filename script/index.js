@@ -131,6 +131,7 @@ popupAddCardForm.addEventListener('submit', handleCardSubmit);
 
 // нажатие на кнопку добавления карточки
 buttonAddCard.addEventListener('click', () => {
+  popupAddCardForm.reset();
   openPopup(popupAddCard)
 });
 
