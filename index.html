@@ -39,9 +39,9 @@
       <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form popup__form_type_edit" name="form-profile" novalidate>
-        <input type="text" name="username" class="popup__input popup__input_type_name" minlength="2" maxlength="40" required placeholder="Введите имя">
+        <input id="username"  type="text" name="username" class="popup__input popup__input_type_name" minlength="2" maxlength="40" required placeholder="Введите имя">
         <span id="error-username" class="error-message"></span>
-        <input type="text" name="job" class="popup__input popup__input_type_about" minlength="2" maxlength="200" required placeholder="Укажите свой род деятельности">
+        <input id="job" type="text" name="job" class="popup__input popup__input_type_about" minlength="2" maxlength="200" required placeholder="Укажите свой род деятельности">
         <span id="error-job" class="error-message"></span>
         <button type="submit" value="Сохранить" class="popup__submit" aria-label="Сохранить">Сохранить</button>
       </form>
@@ -54,9 +54,9 @@
       <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form popup__form_type_add" name="form-card" novalidate>
-        <input type="text" name="cardname" class="popup__input popup__input_type_card-name" required minlength="2" maxlength="30" placeholder="Название">
+        <input id="cardname" type="text" name="cardname" class="popup__input popup__input_type_card-name" required minlength="2" maxlength="30" placeholder="Название">
         <span id="error-cardname" class="error-message"></span>
-        <input type="url" name="link" class="popup__input popup__input_type_link" required placeholder="Ссылка на картинку">
+        <input id="cardlink" type="url" name="link" class="popup__input popup__input_type_link" required placeholder="Ссылка на картинку">
         <span id="error-cardlink" class="error-message"></span>
         <button type="submit" value="Создать" class="popup__submit" aria-label="Сохранить">Создать</button>
       </form>

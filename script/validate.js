@@ -1,12 +1,15 @@
-// const formPopup = document.querySelector('.popup__form');
-// // console.log(formPopup)
 // функция проверки валидности инпутов
-function checkingValidity(input) {
+function checkingValidity(input, formPopup) {
+
+const inputError = formPopup.querySelector(`#error-${input.id}`);
+
   if (input.checkValidity()){
     input.classList.remove('popup__input_invalid');
+    inputError.textContent = '';
   }
   else {
     input.classList.add('popup__input_invalid');
+    inputError.textContent = input.validationMessage;
   }
 };
 
@@ -16,9 +19,8 @@ function setEventListeners(formPopup) {
 
   inputsList.forEach(function(input){
     input.addEventListener('input', () => {
-      checkingValidity(input);
+      checkingValidity(input, formPopup);
     });
-    console.log(input)
   });
 
 };
