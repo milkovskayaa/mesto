@@ -25,6 +25,7 @@ const cardsGrid = document.querySelector('.elements');
 
 const image = document.querySelector('.popup__image');
 const caption = document.querySelector('.popup__image-name');
+
 // элементы профиля пользователя
 const userName = document.querySelector('.profile__username');
 const userAbout = document.querySelector('.profile__about');
@@ -34,14 +35,35 @@ const linkCard = popupAddCardForm.querySelector('.popup__input_type_link');
 
 // функции
 
+// закрытие попапа клавишей Esc
+function closePopupByEsc(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popupOpened);
+  };
+};
+
+// закрытие попапа на оверлей
+function closePopupByOverlay(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.currentTarget === evt.target) {
+    closePopup(popupOpened);
+  };
+}
+
+
 // функция открытия попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEsc);
+  popup.addEventListener('click', closePopupByOverlay);
 };
 
 // функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
+  popup.removeEventListener('click', closePopupByOverlay);
 }
 
 // функция сохранения измененных данных, введенных пользователем

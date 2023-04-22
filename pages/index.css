@@ -35,4 +35,6 @@
 @import url(../blocks/popup/__image-name/popup__image-name.css);
 @import url(../blocks/elements/__delete/elements__delete.css);
 @import url(../blocks/popup/_card-image/popup_card-image.css);
-
+@import url(../blocks/error-message/error-message.css);
+@import url(../blocks/popup/__input/_invalid/popup__input_invalid.css);
+@import url(../blocks/popup/__submit/_disabled/popup__submit_disabled.css);
