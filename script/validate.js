@@ -33,10 +33,8 @@ function checkingValidity(input, formPopup, config) {
   }
 };
 
-
-
 // функция обработчика инпута
-function setEventListeners(formPopup, config) {
+function setEventListeners(formPopup, config, input) {
   const inputsList = Array.from(formPopup.querySelectorAll(config.inputSelector));
 
   toggleButtonValid(formPopup, config);
@@ -65,14 +63,12 @@ function toggleButtonValid(formPopup, config) {
 function setDisabledButton(config, button) {
   button.classList.add(config.inactiveButtonClass);
   button.setAttribute('disabled', true);
-
 };
 
 // функция разблокировки кнопки
 function setEnabledButton(config, button) {
   button.classList.remove(config.inactiveButtonClass);
   button.removeAttribute('disabled');
-
 };
 
 
