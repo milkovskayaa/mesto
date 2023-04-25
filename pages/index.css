@@ -38,3 +38,4 @@
 @import url(../blocks/error-message/error-message.css);
 @import url(../blocks/popup/__input/_invalid/popup__input_invalid.css);
 @import url(../blocks/popup/__submit/_disabled/popup__submit_disabled.css);
+@import url(../blocks/error-message/error-message_visible.css);

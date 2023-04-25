@@ -4,7 +4,7 @@ const config = {
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_invalid',
-  errorClass: 'error-message'
+  errorClass: 'error-message_visible'
 };
 
 // функция валидного состояния инпута
