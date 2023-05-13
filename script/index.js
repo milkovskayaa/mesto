@@ -1,4 +1,5 @@
 import { arrayCards } from "./constants.js";
+import { Card } from "./Card.js";
 
 // попапы
 const popupEditProfile = document.querySelector('.popup_edit-profile');
@@ -76,53 +77,29 @@ function handleEditProfileFormSubmit (evt) {
   closePopup(popupEditProfile);
 };
 
-// функция создания карточки и действий в ней
-function createCardElement (cardItem) {
-  const cardElement = cardTemplate.content.querySelector('.elements__item').cloneNode(true);
-
-  const cardImage = cardElement.querySelector('.elements__img');
-  const cardName = cardElement.querySelector('.elements__name');
-  const likeButton = cardElement.querySelector('.elements__like');
-  const deleteCardButton = cardElement.querySelector('.elements__delete');
-
-  cardImage.src = cardItem.link;
-  cardImage.alt = cardItem.name;
-  cardName.textContent = cardItem.name;
-
-  const handleDeleteCard = () => {
-    cardElement.remove();
-  };
-
-  const handleLikeCard = () => {
-    likeButton.classList.toggle('elements__like_active');
-  };
-
-  const openZoomImage = () => {
-    image.src = cardItem.link;
-    image.alt = cardItem.name;
-    caption.textContent = cardItem.name;
-    openPopup(popupOpenImage);
-  };
-
-  deleteCardButton.addEventListener('click', handleDeleteCard);
-
-  likeButton.addEventListener('click', handleLikeCard);
-
-  cardImage.addEventListener('click', openZoomImage);
-
-  return cardElement;
+// функция открытия картинки
+const openZoomImage = (cardItem) => {
+  image.src = cardItem.link;
+  image.alt = cardItem.name;
+  caption.textContent = cardItem.name;
+  openPopup(popupOpenImage);
 };
-
+// создание карточки из класса
+const createCardElement = (item) => {
+  const card = new Card (item, '.card-template', openZoomImage);
+  const newCard = card.generateCard();
+  return newCard;
+}
 // функция добавления карточек в секцию
 function addCardElement(cardElement) {
   cardsGrid.prepend(cardElement);
 };
 
-arrayCards.forEach((card) => {
-  const element = createCardElement(card);
-  addCardElement(element);
+// перебор массива карточек
+arrayCards.forEach((item) => {
+  const card = createCardElement(item);
+  addCardElement(card);
 });
-
 
 // функция добавления карточки из попапа
 function handleCardSubmit(event) {
