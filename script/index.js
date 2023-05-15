@@ -48,8 +48,8 @@ const config = {
 
 // закрытие попапа клавишей Esc
 function closePopupByEsc(evt) {
-  const popupOpened = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   };
 };
@@ -122,12 +122,13 @@ function handleCardSubmit(event) {
 
   addCardElement(createCardElement(cardData));
   closePopup(popupAddCard);
+
 };
 
-function setDisabledButton(button) {
-  button.classList.add('popup__submit_disabled');
-  button.setAttribute('disabled', true);
-};
+// function setDisabledButton(button) {
+//   button.classList.add('popup__submit_disabled');
+//   button.setAttribute('disabled', true);
+// };
 
 // функция сохранения данных о пользователе
 function saveProfileInfo() {
@@ -152,7 +153,8 @@ popupAddCardForm.addEventListener('submit', handleCardSubmit);
 // нажатие на кнопку добавления карточки
 buttonAddCard.addEventListener('click', () => {
   popupAddCardForm.reset();
-  setDisabledButton(buttonCreateCard);
+  cardValidator._toggleButtonValid(buttonCreateCard);
+  // setDisabledButton(buttonCreateCard);
   openPopup(popupAddCard);
 });
 

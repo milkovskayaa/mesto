@@ -7,7 +7,9 @@ class FormValidator {
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
     this._formElement = formElement;
-    // this._form = formElement.querySelector(config.formSelector);
+
+    this._inputsList = this._getInputsList();
+    this._buttonElement = this._getFormButton();
   };
 
   // функция валидного состояния инпута
@@ -61,18 +63,23 @@ class FormValidator {
     button.removeAttribute('disabled');
   };
 
+  _getInputsList() {
+    return Array.from(this._formElement.querySelectorAll(this._inputSelector));
+  };
+
+  _getFormButton() {
+    return this._formElement.querySelector(this._submitButtonSelector);
+  };
+
   _setEventListeners = () => {
       this._formElement.addEventListener('submit', (evt) => {
         evt.preventDefault();
       });
 
-      this._inputsList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-      this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
       this._toggleButtonValid();
 
       this._inputsList.forEach((input) => {
         input.addEventListener('input', () => {
-          console.log(input)
           this._checkingValidity(input);
           this._toggleButtonValid(this._buttonElement);
         });
