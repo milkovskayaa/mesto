@@ -1,5 +1,6 @@
 import { arrayCards } from "./constants.js";
 import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 
 // попапы
 const popupEditProfile = document.querySelector('.popup_edit-profile');
@@ -12,7 +13,6 @@ const buttonAddCard = document.querySelector('.profile__button_type_add');
 const buttonClosePopupEdit = popupEditProfile.querySelector('.popup__button-close');
 const buttonClosePopupAdd = popupAddCard.querySelector('.popup__button-close');
 const buttonCloseImagePopup = popupOpenImage.querySelector('.popup__button-close');
-
 const buttonCreateCard = popupAddCard.querySelector('.popup__submit_type_add');
 
 // инпуты попапа редактирования профиля
@@ -23,7 +23,6 @@ const inputAboutFormProfile = document.querySelector('.popup__input_type_about')
 const popupEditeProfileForm = document.querySelector('.popup__form_type_edit');
 const popupAddCardForm = document.querySelector('.popup__form_type_add');
 
-const cardTemplate = document.getElementById('template-card');
 const cardsGrid = document.querySelector('.elements');
 
 const image = document.querySelector('.popup__image');
@@ -36,6 +35,14 @@ const userAbout = document.querySelector('.profile__about');
 const inputNameFormAddNewCard = popupAddCardForm.querySelector('.popup__input_type_card-name');
 const inputLinkFormAddNewCard = popupAddCardForm.querySelector('.popup__input_type_link');
 
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_invalid',
+  errorClass: 'error-message_visible'
+};
 
 // функции
 
@@ -163,6 +170,12 @@ buttonClosePopupAdd.addEventListener('click', () => {
 buttonCloseImagePopup.addEventListener('click', () => {
   closePopup(popupOpenImage);
 });
+
+const profileValidator = new FormValidator(config, popupEditeProfileForm);
+const cardValidator = new FormValidator(config, popupAddCardForm);
+
+profileValidator.enableValidation();
+cardValidator.enableValidation();
 
 
 
