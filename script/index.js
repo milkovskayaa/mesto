@@ -153,7 +153,7 @@ popupAddCardForm.addEventListener('submit', handleCardSubmit);
 // нажатие на кнопку добавления карточки
 buttonAddCard.addEventListener('click', () => {
   popupAddCardForm.reset();
-  cardValidator._toggleButtonValid(buttonCreateCard);
+  cardValidator.toggleButtonValid(buttonCreateCard);
   // setDisabledButton(buttonCreateCard);
   openPopup(popupAddCard);
 });

@@ -40,27 +40,26 @@ class FormValidator {
   };
 
 // функция переключения кнопки
-  _toggleButtonValid = () => {
-    const formButton = this._formElement.querySelector(this._submitButtonSelector);
+  toggleButtonValid = () => {
 
     if (this._formElement.checkValidity()) {
-      this._setEnabledButton(formButton);
+      this._setEnabledButton(this._buttonElement);
     }
     else {
-      this._setDisabledButton(formButton);
+      this._setDisabledButton(this._buttonElement);
     };
   };
 
 // функция блокировки кнопки
-  _setDisabledButton = (button) => {
-    button.classList.add(this._inactiveButtonClass);
-    button.setAttribute('disabled', true);
+  _setDisabledButton = () => {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.setAttribute('disabled', true);
   };
 
 // функция разблокировки кнопки
-  _setEnabledButton = (button) => {
-    button.classList.remove(this._inactiveButtonClass);
-    button.removeAttribute('disabled');
+  _setEnabledButton = () => {
+    this._buttonElement.classList.remove(this._inactiveButtonClass);
+    this._buttonElement.removeAttribute('disabled');
   };
 
   _getInputsList() {
@@ -76,12 +75,12 @@ class FormValidator {
         evt.preventDefault();
       });
 
-      this._toggleButtonValid();
+      this.toggleButtonValid();
 
       this._inputsList.forEach((input) => {
         input.addEventListener('input', () => {
           this._checkingValidity(input);
-          this._toggleButtonValid(this._buttonElement);
+          this.toggleButtonValid(this._buttonElement);
         });
       });
     };
