@@ -3,6 +3,7 @@ import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
 import Popup from "./Popup.js";
 import PopupWithImage from "./PopupWithImage.js";
+import Section from "./Section.js";
 
 // попапы
 const popupEditProfile = new Popup('.popup_edit-profile');
@@ -30,10 +31,20 @@ const inputAboutFormProfile = document.querySelector('.popup__input_type_about')
 const popupEditeProfileForm = document.querySelector('.popup__form_type_edit');
 const popupAddCardForm = document.querySelector('.popup__form_type_add');
 
-const cardsGrid = document.querySelector('.elements');
+const cardsGrid = new Section('.elements', {
+  renderer: (item) => {
+    console.log(item);
+    // const card = new Card (item, '.card-template', (item) => {
+    //   popupOpenImage.open(item.name, item.link);
+    // });
+    // const newCard = card.generateCard();
+    const newCard = createCardElement(item);
+    cardsGrid.addItem(newCard);
+  }
+});
 
-const image = document.querySelector('.popup__image');
-const caption = document.querySelector('.popup__image-name');
+// const image = document.querySelector('.popup__image');
+// const caption = document.querySelector('.popup__image-name');
 
 // элементы профиля пользователя
 const userName = document.querySelector('.profile__username');
@@ -77,29 +88,29 @@ const createCardElement = (item) => {
   return newCard;
 }
 // функция добавления карточек в секцию
-function addCardElement(cardElement) {
-  cardsGrid.prepend(cardElement);
-};
+// function addCardElement(cardElement) {
+//   cardsGrid.prepend(cardElement);
+// };
 
 // перебор массива карточек
-arrayCards.forEach((item) => {
-  const card = createCardElement(item);
-  addCardElement(card);
-});
+// arrayCards.forEach((item) => {
+//   const card = createCardElement(item);
+//   cardsGrid.addItem(card);
+// });
+
+cardsGrid.renderItems(arrayCards);
 
 // функция добавления карточки из попапа
 function handleCardSubmit(event) {
   event.preventDefault();
 
-  const name = inputNameFormAddNewCard.value;
-  const link = inputLinkFormAddNewCard.value;
+  cardsGrid.addItem(
+    createCardElement({
+    name: inputNameFormAddNewCard.value,
+    link: inputLinkFormAddNewCard.value,
+  })
+  );
 
-  const cardData = {
-    name,
-    link
-  };
-
-  addCardElement(createCardElement(cardData));
   popupAddCard.close();
 
 };

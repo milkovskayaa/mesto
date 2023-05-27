@@ -9,18 +9,18 @@ export default class Popup {
   open() {
     this._popup.classList.add('popup_opened');
     document.addEventListener('keydown', this._handleEscClose);
-  }
+  };
 
   close() {
     this._popup.classList.remove('popup_opened');
-  }
+  };
 
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
       const popupOpened = document.querySelector('.popup_opened');
       this.close(popupOpened);
     };
-  }
+  };
 
   setEventListeners(evt) {
     this._closeButton.addEventListener('click', () => {
@@ -34,5 +34,5 @@ export default class Popup {
     });
   };
 
-}
+};
 
