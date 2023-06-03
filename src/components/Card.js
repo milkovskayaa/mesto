@@ -16,7 +16,7 @@ class Card {
   // метод получения темплейт элемента
   _getTemplate () {
     const cardElement = document
-    .querySelector('.card-template')
+    .querySelector(this._templateElement)
     .content
     .querySelector('.elements__item')
     .cloneNode(true);

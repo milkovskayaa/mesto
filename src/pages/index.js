@@ -1,19 +1,12 @@
 import './index.css'
-import { arrayCards } from "../script/constants.js";
-import { Card } from "../script/Card.js";
-import { FormValidator } from "../script/FormValidator.js";
-import Popup from "../script/Popup.js";
-import PopupWithImage from "../script/PopupWithImage.js";
-import Section from "../script/Section.js";
-import UserInfo from "../script/UserInfo.js";
-import PopupWithForm from "../script/PopupWithForm.js";
-
-// попапы
-const popupEditProfile = new Popup('.popup_edit-profile');
-popupEditProfile.setEventListeners();
-
-const popupAddCard = new Popup('.popup_add-card');
-popupAddCard.setEventListeners();
+import { arrayCards, config } from "../utils/constants.js";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 const popupOpenImage = new PopupWithImage('.popup_card-image');
 popupOpenImage.setEventListeners();
@@ -21,15 +14,14 @@ popupOpenImage.setEventListeners();
 // кнопки
 const buttonEdit = document.querySelector('.profile__button_type_edit');
 const buttonAddCard = document.querySelector('.profile__button_type_add');
-const buttonCreateCard = document.querySelector('.popup__submit_type_add');
 
 // инпуты попапа редактирования профиля
 const inputNameFormProfile = document.querySelector('.popup__input_type_name');
 const inputAboutFormProfile = document.querySelector('.popup__input_type_about');
 
 // формы попапов
-const popupEditeProfileForm = document.querySelector('.popup__form_type_edit');
-const popupAddCardForm = document.querySelector('.popup__form_type_add');
+const popupEditeProfileForm = document.forms['form-profile'];
+const popupAddCardForm = document.forms['form-card'];
 
 // создание карточки из класса
 const createCardElement = (item) => {
@@ -49,47 +41,34 @@ const cardsGrid = new Section('.elements', {
 
 cardsGrid.renderItems(arrayCards);
 
-
 const userInfoFormProfile = new UserInfo({
   profileName: '.profile__username',
   profileBio: '.profile__about'
 });
 
-const inputNameFormAddNewCard = popupAddCardForm.querySelector('.popup__input_type_card-name');
-const inputLinkFormAddNewCard = popupAddCardForm.querySelector('.popup__input_type_link');
-
-const config = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_invalid',
-  errorClass: 'error-message_visible'
-};
-
-const handleSubmitPopupProfile = () => {
+const handleSubmitPopupProfile = (data) => {
   userInfoFormProfile.setUserInfo({
-    name: inputNameFormProfile.value,
-    bio: inputAboutFormProfile.value
+    name: data.username,
+    bio: data.job
   });
+
 };
 
 // функция добавления карточки из попапа
-const handleCardSubmit = () => {
-
+const handleCardSubmit = (data) => {
   cardsGrid.addItem(
     createCardElement({
-    name: inputNameFormAddNewCard.value,
-    link: inputLinkFormAddNewCard.value
+    name: data.cardname,
+    link: data.link
   })
   );
 };
 
-const popupEditProfileSubmit = new PopupWithForm('.popup_edit-profile', handleSubmitPopupProfile);
-popupEditProfileSubmit.setEventListeners();
+const popupEditProfile = new PopupWithForm('.popup_edit-profile', handleSubmitPopupProfile);
+popupEditProfile.setEventListeners();
 
-const popupAddCardSubmit = new PopupWithForm('.popup_add-card', handleCardSubmit);
-popupAddCardSubmit.setEventListeners();
+const popupAddCard = new PopupWithForm('.popup_add-card', handleCardSubmit);
+popupAddCard.setEventListeners();
 
 // обработчики событий кнопок
 
@@ -101,12 +80,9 @@ buttonEdit.addEventListener('click', () => {
   popupEditProfile.open();
 });
 
-
 // нажатие на кнопку добавления карточки
 buttonAddCard.addEventListener('click', () => {
-  popupAddCardForm.reset();
-  cardValidator.toggleButtonValid(buttonCreateCard);
-
+  cardValidator.toggleButtonValid();
   popupAddCard.open();
 });
 
