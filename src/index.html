@@ -13,7 +13,9 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="<%=require('./images/avatar.jpg')%>" alt="Фотография профиля" class="profile__img">
+        <div type="button" class="profile__overlay-img">
+          <img src="<%=require('./images/avatar.jpg')%>" alt="Фотография профиля" class="profile__img">
+        </div>
         <div class="profile__info">
           <div class="profile__info-user">
             <h1 class="profile__username">Жак-Ив Кусто</h1>
@@ -47,6 +49,19 @@
     </div>
   </div>
 
+  <!-- попап обновления аватара -->
+  <div class="popup popup_update-avatar">
+    <div class="popup__container">
+      <button class="popup__button-close" aria-label="Закрыть" type="button"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form popup__form_type_update" name="form-avatar" novalidate>
+        <input id="avatar" type="url" name="avatar" class="popup__input popup__input_type_link" required placeholder="Ссылка на изображение">
+        <span class="error-avatar error-message"></span>
+        <button type="submit" value="Сохранить" class="popup__submit popup__submit_type_edit" aria-label="Сохранить">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
   <!-- попап добавления карточек -->
   <div class="popup popup_add-card">
     <div class="popup__container">
@@ -69,7 +84,6 @@
       <img role="button" src="https://images.unsplash.com/photo-1680709287234-bcba632aa663?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="Байкал" class="popup__image">
       <p class="popup__image-name">Байкал</p>
     </div>
-
   </div>
 
   <!-- шаблон карточек -->
@@ -78,13 +92,14 @@
       <img src="#" alt="" class="elements__img">
       <div class="elements__about">
         <h2 class="elements__name"></h2>
-        <button class="elements__like" type="button" aria-label="Лайк"></button>
+        <div class="elements__like-group">
+          <button class="elements__like" type="button" aria-label="Лайк"></button>
+          <p class="elements__like-count">0</p>
+        </div>
         <button class="elements__delete" type="button" aria-label="Удалить"></button>
       </div>
     </div>
   </template>
-
-  <!-- <script src="./script/index.js" type="module"></script> -->
 
 </body>
 </html>

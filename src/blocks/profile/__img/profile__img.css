@@ -2,7 +2,12 @@
   max-width: 120px;
   width: 100%;
   border-radius: 50%;
-  margin-right: 30px;
+  opacity: 1;
+}
+
+.profile__img:hover {
+  opacity: 0.2;
+  cursor: pointer;
 }
 
 @media screen and (max-width:1023px) {

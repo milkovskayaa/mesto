@@ -40,3 +40,6 @@
 @import url(../blocks/popup/__submit/_disabled/popup__submit_disabled.css);
 @import url(../blocks/error-message/error-message_visible.css);
 @import url(../blocks/content/content.css);
+@import url(../blocks/elements/__like-count/elements__like-count.css);
+@import url(../blocks/elements/__like-group/elements__like-group.css);
+@import url(../blocks/profile/__overlay-img/profile__overlay-img.css);
