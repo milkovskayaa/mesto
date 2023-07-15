@@ -59,21 +59,37 @@ const createCardElement = (item) => {
   return newCard;
 };
 
-
-
-// cardsGrid.renderItems(cardPromise);
-
 const userInfoFormProfile = new UserInfo({
   profileName: '.profile__username',
-  profileBio: '.profile__about'
+  profileBio: '.profile__about',
+  profileAvatar: '.profile__img'
 });
 
-const handleSubmitPopupProfile = (data) => {
-  userInfoFormProfile.setUserInfo({
-    name: data.username,
-    bio: data.job
+
+// получение данных пользователя с сервера
+api.getInfoProfile()
+  .then((res) => {
+    userInfoFormProfile.setUserInfo({
+      name: res.name,
+      bio: res.about,
+      avatar: res.avatar
+    })
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
   });
 
+
+// сабмит попапа редактирования профиля
+const handleSubmitPopupProfile = (data) => {
+  // api.updateUserInfo(data)
+  //   .then((res)=> {
+  //     console.log(res)
+  //     userInfoFormProfile.setUserInfo(res)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err); // выведем ошибку в консоль
+  //   });
 };
 
 // функция добавления карточки из попапа
@@ -86,9 +102,11 @@ const handleCardSubmit = (data) => {
   );
 };
 
-// const handleSubmitAvatar = () => {
-//   console.log('ok');
-// }
+const handleSubmitAvatar = (data) => {
+  // api.updateAvatar(avatar).then((newAvatar) => {
+  //   console.log(newAvatar.link);
+  // })
+}
 
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', handleSubmitPopupProfile);
 popupEditProfile.setEventListeners();
@@ -96,14 +114,14 @@ popupEditProfile.setEventListeners();
 const popupAddCard = new PopupWithForm('.popup_add-card', handleCardSubmit);
 popupAddCard.setEventListeners();
 
-// const popupUpdateAvatar = new Popup('popup_update-avatar');
-// popupUpdateAvatar.setEventListeners();
+const popupUpdateAvatar = new PopupWithForm('.popup_update-avatar', handleSubmitAvatar);
+popupUpdateAvatar.setEventListeners();
 
 // обработчики событий кнопок
 
-// buttonUpdateAvatar.addEventListener('click', () => {
-//   popupUpdateAvatar.open();
-// });
+buttonUpdateAvatar.addEventListener('click', () => {
+  popupUpdateAvatar.open();
+});
 
 // нажатие на кнопку редактирования профиля
 buttonEdit.addEventListener('click', () => {
@@ -122,8 +140,10 @@ buttonAddCard.addEventListener('click', () => {
 const profileValidator = new FormValidator(config, popupEditeProfileForm);
 const cardValidator = new FormValidator(config, popupAddCardForm);
 
+
 profileValidator.enableValidation();
 cardValidator.enableValidation();
+
 
 
 
