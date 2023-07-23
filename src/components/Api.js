@@ -36,21 +36,21 @@ export default class Api {
     })
     .then(this._handleResponse);
   };
-
-  // postNewCard() {
-  //   return fetch(`${this._url}/cards`, {
-  //     method: 'POST',
-  //     headers: {
-  //       authorization: this._authorization,
-  //       'Content-type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       name: data.name,
-  //       link: data.link
-  //     })
-  //   })
-  //   .then(this._handleResponse);
-  // }
+// добавление новой карточки
+  postNewCard(name, link) {
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    })
+    .then(this._handleResponse);
+  }
 
 // обновление аватара пользователя
   updateAvatar(avatar) {

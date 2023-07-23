@@ -97,13 +97,23 @@ const handleSubmitPopupProfile = (data) => {
 
 // функция добавления карточки из попапа
 const handleCardSubmit = (data) => {
-  cardsGrid.addItem(
-    createCardElement({
-    name: data.cardname,
-    link: data.link
+  console.log(data)
+  api.postNewCard(data.cardname, data.link)
+    .then((res) => {
+      cardsGrid.addItem(
+      createCardElement({
+      name: res.name,
+      link: res.link
   })
   );
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
 };
+
 // установка аватара пользователя
 const handleSubmitAvatar = (data) => {
   api.updateAvatar(data.avatar)
