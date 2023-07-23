@@ -42,9 +42,9 @@ api.getCards()
     })
   })
   .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
+    console.log(err);
   });
-
+// добавление карточек в секцию
 const cardsGrid = new Section('.elements', () => {
     cardsGrid.addItem(newCard);
   }
@@ -76,20 +76,23 @@ api.getInfoProfile()
     })
   })
   .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
+    console.log(err);
   });
 
 
 // сабмит попапа редактирования профиля
 const handleSubmitPopupProfile = (data) => {
-  // api.updateUserInfo(data)
-  //   .then((res)=> {
-  //     console.log(res)
-  //     userInfoFormProfile.setUserInfo(res)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err); // выведем ошибку в консоль
-  //   });
+  api.updateUserInfo(data.username, data.job)
+    .then((res)=> {
+      userInfoFormProfile.setUserInfo({
+        name: res.name,
+        bio: res.about,
+        avatar: res.avatar
+      })
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
 };
 
 // функция добавления карточки из попапа
@@ -101,11 +104,19 @@ const handleCardSubmit = (data) => {
   })
   );
 };
-
+// установка аватара пользователя
 const handleSubmitAvatar = (data) => {
-  // api.updateAvatar(avatar).then((newAvatar) => {
-  //   console.log(newAvatar.link);
-  // })
+  api.updateAvatar(data.avatar)
+    .then((res)=> {
+      userInfoFormProfile.setUserInfo({
+        name: res.name,
+        bio: res.about,
+        avatar: res.avatar
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', handleSubmitPopupProfile);
