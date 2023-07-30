@@ -5,9 +5,10 @@ class Card {
     this._link = data.link;
     this._alt = data.name;
     this._ownerId = data.owner._id;
-    this._userId = userId;
     this._templateElement = templateElement;
     this._onClick = onClick;
+    this._userId = userId;
+    console.log(this._userId)
 
     this._element = this._getTemplate();
     this._img = this._element.querySelector('.elements__img');
@@ -43,7 +44,7 @@ class Card {
   };
 
   _checkOwnerCard() {
-    if (!(this.userId === this.ownerId)) {
+    if (this._userId !== this._ownerId) {
       this._deleteButton.remove();
     }
   }

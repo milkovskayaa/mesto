@@ -38,17 +38,27 @@ const api = new Api ({
   }
 });
 
-// загрузка карточек с сервера
-api.getCards()
-  .then((cards) => {
+let userId = null
+
+// загрузка данных с сервера
+Promise.all([api.getInfoProfile(), api.getCards()])
+  .then(([res, cards]) => {
+    userInfoFormProfile.setUserInfo({
+      name: res.name,
+      bio: res.about,
+      avatar: res.avatar
+    });
+
+    userId = res._id;
     cards.forEach((data) => {
       const newCard = createCardElement(data);
       cardsGrid.addItem(newCard);
     })
+
   })
-  .catch((err) => {
-    console.log(err);
-  });
+    .catch((err) => {
+      console.log(err);
+    });
 // добавление карточек в секцию
 const cardsGrid = new Section('.elements', () => {
     cardsGrid.addItem(newCard);
@@ -56,10 +66,10 @@ const cardsGrid = new Section('.elements', () => {
 );
 
 // создание карточки из класса
-const createCardElement = (item) => {
+function createCardElement(item){
   const card = new Card (item, '.card-template', (item) => {
     popupOpenImage.open(item.name, item.link);
-  });
+  }, userId);
   const newCard = card.generateCard();
   return newCard;
 };
@@ -69,20 +79,6 @@ const userInfoFormProfile = new UserInfo({
   profileBio: '.profile__about',
   profileAvatar: '.profile__img'
 });
-
-
-// получение данных пользователя с сервера
-api.getInfoProfile()
-  .then((res) => {
-    userInfoFormProfile.setUserInfo({
-      name: res.name,
-      bio: res.about,
-      avatar: res.avatar
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 // сабмит попапа редактирования профиля
 const handleSubmitPopupProfile = (data) => {
@@ -110,7 +106,6 @@ const handleCardSubmit = (data) => {
       link: res.link
   })
   );
-      console.log(res)
     })
     .catch((err) => {
       console.log(err);
