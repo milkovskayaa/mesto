@@ -38,7 +38,7 @@ const api = new Api ({
   }
 });
 
-let userId = null
+let userId = null;
 
 // загрузка данных с сервера
 Promise.all([api.getInfoProfile(), api.getCards()])

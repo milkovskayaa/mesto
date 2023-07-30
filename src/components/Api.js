@@ -82,7 +82,20 @@ export default class Api {
     .then(this._handleResponse);
   }
 
-
+// удаление карточки
+  deleteCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json'
+      }
+    })
+      .then(this._handleResponse);
+    }
 }
+
+
+
 
 
