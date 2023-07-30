@@ -1,9 +1,11 @@
 class Card {
-  constructor(data, templateElement, onClick) {
+  constructor(data, templateElement, onClick, userId) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._alt = data.name;
+    this._ownerId = data.owner._id;
+    this._userId = userId;
     this._templateElement = templateElement;
     this._onClick = onClick;
 
@@ -28,25 +30,34 @@ class Card {
   _handleLikeCard = () => {
     this._like.classList.toggle('elements__like_active');
   };
+
   // удаление карточки
   _handleDeleteCard = () => {
     this._element.remove();
     this._element = null;
   };
+
   // открытие картинки
   _handleCardClick = () => {
     this._onClick(this._data);
   };
 
+  _checkOwnerCard() {
+    if (!(this.userId === this.ownerId)) {
+      this._deleteButton.remove();
+    }
+  }
+
   // метод формирования карточки
   generateCard () {
     this._setEventListeners();
-
     this._img.src = this._link;
     this._img.alt = this._alt;
     this._element.querySelector('.elements__name').textContent = this._name;
+    this._checkOwnerCard();
 
     return this._element;
+
   };
 
   // слушатели

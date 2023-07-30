@@ -8,9 +8,12 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import Api from '../components/Api.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation';
 
 const popupOpenImage = new PopupWithImage('.popup_card-image');
 popupOpenImage.setEventListeners();
+
+const popupToConfirm = new PopupWithConfirmation('.popup_confirm');
 
 // кнопки
 const buttonEdit = document.querySelector('.profile__button_type_edit');
@@ -24,11 +27,13 @@ const inputAboutFormProfile = document.querySelector('.popup__input_type_about')
 // формы попапов
 const popupEditeProfileForm = document.forms['form-profile'];
 const popupAddCardForm = document.forms['form-card'];
+const popupUpdateAvatarForm = document.forms['form-avatar'];
+
 
 const api = new Api ({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-68',
+  url: 'https://mesto.nomoreparties.co/v1/cohort-72',
   headers: {
-    authorization: '4e9ead22-f0ed-4500-82aa-6e497ff39fc7',
+    authorization: '9b32332c-f0f6-42bc-b5ec-b67db254adaa',
     'Content-Type': 'application/json'
   }
 });
@@ -73,12 +78,11 @@ api.getInfoProfile()
       name: res.name,
       bio: res.about,
       avatar: res.avatar
-    })
+    });
   })
   .catch((err) => {
     console.log(err);
   });
-
 
 // сабмит попапа редактирования профиля
 const handleSubmitPopupProfile = (data) => {
@@ -152,6 +156,7 @@ buttonEdit.addEventListener('click', () => {
   popupEditProfile.open();
 });
 
+
 // нажатие на кнопку добавления карточки
 buttonAddCard.addEventListener('click', () => {
   cardValidator.toggleButtonValid();
@@ -160,10 +165,11 @@ buttonAddCard.addEventListener('click', () => {
 
 const profileValidator = new FormValidator(config, popupEditeProfileForm);
 const cardValidator = new FormValidator(config, popupAddCardForm);
-
+const updateAvatarValidator = new FormValidator(config, popupUpdateAvatarForm);
 
 profileValidator.enableValidation();
 cardValidator.enableValidation();
+updateAvatarValidator.enableValidation();
 
 
 
