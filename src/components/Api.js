@@ -92,8 +92,35 @@ export default class Api {
       }
     })
       .then(this._handleResponse);
-    }
-}
+    };
+
+// постановка лайка на карточку
+  onLikeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json'
+      }
+    })
+      .then(this._handleResponse);
+    };
+
+// снятие лайка с карточки
+  deleteLikeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json'
+      }
+    })
+      .then(this._handleResponse);
+    };
+  }
+
+
+
 
 
 
