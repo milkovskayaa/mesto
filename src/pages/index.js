@@ -10,11 +10,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import Api from '../components/Api.js';
 import PopupWithConfirmation from '../components/PopupWithConfirmation';
 
-const popupOpenImage = new PopupWithImage('.popup_card-image');
-popupOpenImage.setEventListeners();
-
-const popupToConfirm = new PopupWithConfirmation('.popup_confirm');
-
 // кнопки
 const buttonEdit = document.querySelector('.profile__button_type_edit');
 const buttonAddCard = document.querySelector('.profile__button_type_add');
@@ -38,6 +33,8 @@ const api = new Api ({
   }
 });
 
+
+
 let userId = null;
 
 // загрузка данных с сервера
@@ -59,20 +56,12 @@ Promise.all([api.getInfoProfile(), api.getCards()])
     .catch((err) => {
       console.log(err);
     });
+
 // добавление карточек в секцию
 const cardsGrid = new Section('.elements', () => {
     cardsGrid.addItem(newCard);
   }
 );
-
-// создание карточки из класса
-function createCardElement(item){
-  const card = new Card (item, '.card-template', (item) => {
-    popupOpenImage.open(item.name, item.link);
-  }, userId);
-  const newCard = card.generateCard();
-  return newCard;
-};
 
 const userInfoFormProfile = new UserInfo({
   profileName: '.profile__username',
@@ -95,22 +84,18 @@ const handleSubmitPopupProfile = (data) => {
     });
 };
 
+
 // функция добавления карточки из попапа
 const handleCardSubmit = (data) => {
-  console.log(data)
-  api.postNewCard(data.cardname, data.link)
-    .then((res) => {
-      cardsGrid.addItem(
-      createCardElement({
-      name: res.name,
-      link: res.link
-  })
-  );
+  Promise.all([api.postNewCard(data.cardname, data.link), api.getInfoProfile()])
+    .then(([res, userData]) => {
+      cardId = res._id;
+      const cardElement = createCardElement(res, userData);
+      cardsGrid.addItem(cardElement);
     })
     .catch((err) => {
       console.log(err);
     });
-
 };
 
 // установка аватара пользователя
@@ -126,7 +111,26 @@ const handleSubmitAvatar = (data) => {
     .catch((err) => {
       console.log(err);
     });
-}
+};
+
+const handleDeleteCard = (data) => {
+
+};
+
+// создание карточки из класса
+function createCardElement(data, userData) {
+  const card = new Card (data, userData,'.card-template',
+    (data) => {
+    popupOpenImage.open(data.name, data.link);
+  }, () => {
+    popupToConfirm.open();
+    popupToConfirm.getCardData(data);
+    handleDeleteCard(data)
+  }, userId);
+  const newCard = card.generateCard();
+  return newCard;
+};
+
 
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', handleSubmitPopupProfile);
 popupEditProfile.setEventListeners();
@@ -136,6 +140,13 @@ popupAddCard.setEventListeners();
 
 const popupUpdateAvatar = new PopupWithForm('.popup_update-avatar', handleSubmitAvatar);
 popupUpdateAvatar.setEventListeners();
+
+const popupOpenImage = new PopupWithImage('.popup_card-image');
+popupOpenImage.setEventListeners();
+
+const popupToConfirm = new PopupWithConfirmation('.popup_confirm', handleDeleteCard);
+popupToConfirm.setEventListeners();
+
 
 // обработчики событий кнопок
 

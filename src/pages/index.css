@@ -43,3 +43,4 @@
 @import url(../blocks/elements/__like-count/elements__like-count.css);
 @import url(../blocks/elements/__like-group/elements__like-group.css);
 @import url(../blocks/profile/__overlay-img/profile__overlay-img.css);
+@import url(../blocks/popup/__submit/_type/popup__submit_type_confirm.css);

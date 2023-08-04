@@ -1,5 +1,5 @@
 class Card {
-  constructor(data, templateElement, onClick, userId) {
+  constructor(data, userData, templateElement, onClick, handleDeleteIcon, userId) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
@@ -8,12 +8,18 @@ class Card {
     this._templateElement = templateElement;
     this._onClick = onClick;
     this._userId = userId;
-    console.log(this._userId)
+    this._handleDeleteIcon = handleDeleteIcon;
+    this._userData = userData;
+    this._cardId = data._id;
+    this._likes = data.likes;
+
 
     this._element = this._getTemplate();
     this._img = this._element.querySelector('.elements__img');
     this._like = this._element.querySelector('.elements__like');
     this._deleteButton = this._element.querySelector('.elements__delete');
+    this._likesCounter = this._element.querySelector('.elements__like-count');
+
   };
 
   // метод получения темплейт элемента
@@ -33,20 +39,24 @@ class Card {
   };
 
   // удаление карточки
-  _handleDeleteCard = () => {
+  deleteCard() {
     this._element.remove();
-    this._element = null;
   };
 
   // открытие картинки
   _handleCardClick = () => {
     this._onClick(this._data);
   };
-
+// проверка владельца карточки и скрытие кнопки удаления
   _checkOwnerCard() {
     if (this._userId !== this._ownerId) {
       this._deleteButton.remove();
     }
+  };
+
+// обновление количества лайков на карточке
+  _updateLikesCount() {
+    this._likesCounter.textContent = this._likes.length;
   }
 
   // метод формирования карточки
@@ -56,6 +66,7 @@ class Card {
     this._img.alt = this._alt;
     this._element.querySelector('.elements__name').textContent = this._name;
     this._checkOwnerCard();
+    this._updateLikesCount();
 
     return this._element;
 
@@ -66,7 +77,9 @@ class Card {
     // лайк
     this._like.addEventListener('click', this._handleLikeCard);
     // удаление
-    this._deleteButton.addEventListener('click', this._handleDeleteCard);
+    this._deleteButton.addEventListener('click', () => {
+      this._handleDeleteIcon(this._cardId);
+    });
 
     this._img.addEventListener('click', this._handleCardClick);
   };
