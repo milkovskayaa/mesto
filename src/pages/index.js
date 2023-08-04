@@ -1,6 +1,6 @@
 import './index.css'
 import { config } from "../utils/constants.js";
-import { Card } from "../components/Card.js";
+import Card from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -32,8 +32,6 @@ const api = new Api ({
     'Content-Type': 'application/json'
   }
 });
-
-
 
 let userId = null;
 
@@ -89,7 +87,6 @@ const handleSubmitPopupProfile = (data) => {
 const handleCardSubmit = (data) => {
   Promise.all([api.postNewCard(data.cardname, data.link), api.getInfoProfile()])
     .then(([res, userData]) => {
-      cardId = res._id;
       const cardElement = createCardElement(res, userData);
       cardsGrid.addItem(cardElement);
     })
@@ -112,25 +109,41 @@ const handleSubmitAvatar = (data) => {
       console.log(err);
     });
 };
-
-const handleDeleteCard = (data) => {
-
+// функция удаления карточки
+const handleDeleteCard = (card) => {
+  api.deleteCard(card._cardId)
+    .then(() => {
+      card.delete()
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
-// создание карточки из класса
-function createCardElement(data, userData) {
-  const card = new Card (data, userData,'.card-template',
-    (data) => {
-    popupOpenImage.open(data.name, data.link);
-  }, () => {
-    popupToConfirm.open();
-    popupToConfirm.getCardData(data);
-    handleDeleteCard(data)
-  }, userId);
-  const newCard = card.generateCard();
-  return newCard;
-};
 
+
+// // функция постановки и снятия лайка с карточки
+// function clickLikeOnCard(card) {
+//   let cardId = card._id;
+//   if (card.isLiked){
+//     api.deleteLikeCard(cardId)
+//       .then((res) => {
+//         card.updateLikesCount(res.likes);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   }
+//   else {
+//     api.onLikeCard(cardId)
+//       .then((res) => {
+//         card.updateLikesCount(res.likes);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   }
+// }
 
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', handleSubmitPopupProfile);
 popupEditProfile.setEventListeners();
@@ -147,6 +160,19 @@ popupOpenImage.setEventListeners();
 const popupToConfirm = new PopupWithConfirmation('.popup_confirm', handleDeleteCard);
 popupToConfirm.setEventListeners();
 
+
+// создание карточки из класса
+function createCardElement(data, userData) {
+  const card = new Card (data, userData,'.card-template',
+    (data) => {
+    popupOpenImage.open(data.name, data.link);
+  }, () => {
+    popupToConfirm.open();
+    popupToConfirm.getCardData(card);
+  }, userId);
+  const newCard = card.generateCard();
+  return newCard;
+};
 
 // обработчики событий кнопок
 
