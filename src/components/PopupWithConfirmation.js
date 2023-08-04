@@ -10,15 +10,23 @@ export default class PopupWithConfirmation extends Popup {
 
 getCardData(cardData) {
   this._cardId = cardData._id;
+  this._card = cardData;
+  console.log(this._cardId);
+  console.log(this._card)
+}
+
+close() {
+  super.close()
 }
 
 setEventListeners() {
   this._popupSubmitButton.addEventListener('click', () => {
-    console.log('клик')
-    this._handleSubmit();
+    this._handleSubmit(this._card);
+
     this.close();
   })
 }
+
 
 }
 
