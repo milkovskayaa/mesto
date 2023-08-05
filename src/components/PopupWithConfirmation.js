@@ -14,7 +14,7 @@ getCardData(cardData) {
 }
 
 close() {
-  super.close()
+  super.close();
 }
 
 setEventListeners() {
@@ -22,7 +22,9 @@ setEventListeners() {
     this._handleSubmit(this._card);
 
     this.close();
+
   })
+  super.setEventListeners();
 }
 
 
