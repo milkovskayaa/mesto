@@ -43,4 +43,5 @@
 .elements__like-count{color:#000;font-family:Inter;font-size:13px;font-weight:400;height:13px;line-height:1.2;margin:0 6px;max-width:10px;text-align:center}
 .elements__like-group{display:flex;flex-direction:column;gap:3px;margin:0 0 0 auto}
 .profile__overlay-img{background-image:url(a086f758840ae814ecde.svg);background-position:50%;background-repeat:no-repeat;height:120px;max-width:120px;opacity:.8}
+.popup__submit_type_confirm{margin:0}
 
