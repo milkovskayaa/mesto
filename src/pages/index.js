@@ -120,31 +120,6 @@ const handleDeleteCard = (card) => {
     });
 };
 
-
-
-// // функция постановки и снятия лайка с карточки
-// function clickLikeOnCard(card) {
-//   let cardId = card._id;
-//   if (card.isLiked){
-//     api.deleteLikeCard(cardId)
-//       .then((res) => {
-//         card.updateLikesCount(res.likes);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   }
-//   else {
-//     api.onLikeCard(cardId)
-//       .then((res) => {
-//         card.updateLikesCount(res.likes);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   }
-// }
-
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', handleSubmitPopupProfile);
 popupEditProfile.setEventListeners();
 
@@ -169,7 +144,7 @@ function createCardElement(data, userData) {
   }, () => {
     popupToConfirm.open();
     popupToConfirm.getCardData(card);
-  }, userId);
+  }, userId, api);
   const newCard = card.generateCard();
   return newCard;
 };

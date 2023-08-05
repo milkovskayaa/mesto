@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, userData, templateElement, onClick, handleDeleteIcon, userId) {
+  constructor(data, userData, templateElement, onClick, handleDeleteIcon, userId, api) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
@@ -12,7 +12,7 @@ export default class Card {
     this._userData = userData;
     this._cardId = data._id;
     this._likes = data.likes;
-    // this._clickLikeOnCard = clickLikeOnCard;
+    this._api = api;
 
     this._element = this._getTemplate();
     this._img = this._element.querySelector('.elements__img');
@@ -34,28 +34,28 @@ export default class Card {
   };
 
   // лайк карточки
-  // _handleLikeCard = () => {
-  //   if (this._likeButton.classList.contains('elements__like_active')) {
-  //     this._api.deleteLikeCard(this._cardId)
-  //       .then((res) => {
-  //         this._likesCounter.textContent = res.likes.length;
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       })
-  //     }
-  //   else {
-  //     this._api.onLikeCard(this._cardId)
-  //       .then((res) => {
-  //         this._likesCounter.textContent = res.likes.length;
-  //         this._likeButton.classList.toggle('elements__like_active');
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       })
-  //   }
-  //   }
-    // this._like.classList.toggle('elements__like_active');
+  _handleLikeCard = () => {
+    if (this._likeButton.classList.contains('elements__like_active')) {
+      this._api.deleteLikeCard(this._cardId)
+        .then((res) => {
+          this._likeButton.classList.remove('elements__like_active');
+          this._likesCounter.textContent = res.likes.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      }
+    else {
+      this._api.onLikeCard(this._cardId)
+        .then((res) => {
+          this._likesCounter.textContent = res.likes.length;
+          this._likeButton.classList.add('elements__like_active');
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+    }
 
 
   // удаление карточки
@@ -77,12 +77,10 @@ export default class Card {
 
 // обновление количества лайков на карточке
   updateLikesCount() {
+
+
+
     this._likesCounter.textContent = this._likes.length;
-    // const hasLikeId = this._likes.some((like) => {
-    //   like._id === this._userId;
-    // });
-    // if (hasLikeId)
-    // this._like.classList.toggle('elements__like_active');
   }
 
   // метод формирования карточки
@@ -92,7 +90,14 @@ export default class Card {
     this._img.alt = this._alt;
     this._element.querySelector('.elements__name').textContent = this._name;
     this._checkOwnerCard();
-    // this.updateLikesCount(this.likes);
+    this.updateLikesCount(this.likes);
+
+    const checkLike = this._likes.some((like) => {
+      like._id === this._userId;
+    });
+    if (checkLike) {
+      this._likeButton.classList.toggle('elements__like_active');
+    }
 
     return this._element;
 
