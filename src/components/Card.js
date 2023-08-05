@@ -76,10 +76,7 @@ export default class Card {
   };
 
 // обновление количества лайков на карточке
-  updateLikesCount() {
-
-
-
+  _updateLikesCount() {
     this._likesCounter.textContent = this._likes.length;
   }
 
@@ -90,7 +87,7 @@ export default class Card {
     this._img.alt = this._alt;
     this._element.querySelector('.elements__name').textContent = this._name;
     this._checkOwnerCard();
-    this.updateLikesCount(this.likes);
+    this._updateLikesCount(this.likes);
 
     const checkLike = this._likes.some((like) => {
       like._id === this._userId;
