@@ -34,32 +34,29 @@ const api = new Api ({
 });
 
 let userId = null;
+let cardsGrid;
 
 // загрузка данных с сервера
 Promise.all([api.getInfoProfile(), api.getCards()])
-  .then(([res, cards]) => {
+  .then(([userData, cards]) => {
     userInfoFormProfile.setUserInfo({
-      name: res.name,
-      bio: res.about,
-      avatar: res.avatar
+      name: userData.name,
+      bio: userData.about,
+      avatar: userData.avatar
     });
 
-    userId = res._id;
-    cards.forEach((data) => {
+    userId = userData._id;
+
+    cardsGrid = new Section('.elements', (data) => {
+
       const newCard = createCardElement(data);
       cardsGrid.addItem(newCard);
-    })
-
-  })
-    .catch((err) => {
-      console.log(err);
     });
 
-// добавление карточек в секцию
-const cardsGrid = new Section('.elements', () => {
-    cardsGrid.addItem(newCard);
-  }
-);
+    cardsGrid.renderItems(cards);
+
+  })
+  .catch(console.error);
 
 const userInfoFormProfile = new UserInfo({
   profileName: '.profile__username',
@@ -69,55 +66,55 @@ const userInfoFormProfile = new UserInfo({
 
 // сабмит попапа редактирования профиля
 const handleSubmitPopupProfile = (data) => {
-  api.updateUserInfo(data.username, data.job)
-    .then((res)=> {
+  function makeRequest() {
+    return api.updateUserInfo(data.username, data.job)
+    .then((userData)=> {
       userInfoFormProfile.setUserInfo({
-        name: res.name,
-        bio: res.about,
-        avatar: res.avatar
-      })
+        name: userData.name,
+        bio: userData.about,
+        avatar: userData.avatar
+      });
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
+  }
+  handleSubmit(makeRequest, popupEditProfile);
 };
 
-
-// функция добавления карточки из попапа
+//сабмит попапа добавления карточки
 const handleCardSubmit = (data) => {
-  Promise.all([api.postNewCard(data.cardname, data.link), api.getInfoProfile()])
-    .then(([res, userData]) => {
-      const cardElement = createCardElement(res, userData);
+  function makeRequest() {
+    return api.postNewCard(data.cardname, data.link)
+    .then((cardData) => {
+      const cardElement = createCardElement(cardData);
       cardsGrid.addItem(cardElement);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+  }
+  handleSubmit(makeRequest, popupAddCard);
 };
 
-// установка аватара пользователя
+// сабмит попапа изменения аватара
 const handleSubmitAvatar = (data) => {
-  api.updateAvatar(data.avatar)
-    .then((res)=> {
+  function makeRequest() {
+  return api.updateAvatar(data.avatar)
+    .then((userData)=> {
       userInfoFormProfile.setUserInfo({
-        name: res.name,
-        bio: res.about,
-        avatar: res.avatar
+        name: userData.name,
+        bio: userData.about,
+        avatar: userData.avatar
       })
     })
-    .catch((err) => {
-      console.log(err);
-    });
+  }
+  handleSubmit(makeRequest, popupUpdateAvatar);
 };
+
 // функция удаления карточки
 const handleDeleteCard = (card) => {
-  api.deleteCard(card._cardId)
+  function makeRequest() {}
+  api.deleteCard(card.cardId)
     .then(() => {
-      card.delete()
+      card.deleteCard();
+      popupToConfirm.close();
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch(console.error);
 };
 
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', handleSubmitPopupProfile);
@@ -137,8 +134,8 @@ popupToConfirm.setEventListeners();
 
 
 // создание карточки из класса
-function createCardElement(data, userData) {
-  const card = new Card (data, userData,'.card-template',
+function createCardElement(data) {
+  const card = new Card (data,'.card-template',
     (data) => {
     popupOpenImage.open(data.name, data.link);
   }, () => {
@@ -149,9 +146,23 @@ function createCardElement(data, userData) {
   return newCard;
 };
 
+// универсальная функция для сабмита
+function handleSubmit(request, popupInstance, loadingText) {
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      popupInstance.close()
+    })
+    .catch(console.error)
+    .finally(() => {
+      popupInstance.renderLoading(false);
+    });
+}
+
 // обработчики событий кнопок
 
 buttonUpdateAvatar.addEventListener('click', () => {
+  updateAvatarValidator.toggleButtonValid();
   popupUpdateAvatar.open();
 });
 
