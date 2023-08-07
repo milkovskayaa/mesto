@@ -76,12 +76,10 @@ export default class Card {
 // обновление количества лайков на карточке
   _updateLikesCount(likes) {
     this._likes = likes;
-    // this.isLiked = this._likes.some((like) => {
-    //   like._id === this._userId;
-    // });
-    //   this._likeButton.classList.toggle('elements__like_active', this.isLiked)
-
-
+    this.isLiked = this._likes.some((like) => {
+      return like._id === this._userId;
+    });
+    this._likeButton.classList.toggle('elements__like_active', this.isLiked)
 
     this._likesCounter.textContent = this._likes.length;
   }
@@ -95,20 +93,6 @@ export default class Card {
     this._checkOwnerCard();
 
     this._updateLikesCount(this._likes);
-
-    this.isLiked = this._likes.some((like) => {
-      like._id === this._userId;
-    });
-      this._likeButton.classList.toggle('elements__like_active', this.isLiked)
-
-    // const checkLike = this._likes.some((like) => {
-    //   like._id === this._userId;
-    // });
-
-    // if (checkLike) {
-    //   this._likeButton.classList.add('elements__like_active');
-    // }
-
     return this._element;
   };
 

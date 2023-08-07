@@ -12,6 +12,14 @@ getCardData(cardData) {
   this._card = cardData;
 }
 
+renderLoading(isLoading, loadingText = 'Удаление...') {
+  if (isLoading) {
+    this._popupSubmitButton.textContent = loadingText;
+  } else {
+    this._popupSubmitButton.textContent = this._submitButtonText;
+  }
+};
+
 setEventListeners() {
   this._popupSubmitButton.addEventListener('click', () => {
     this._handleSubmit(this._card);
