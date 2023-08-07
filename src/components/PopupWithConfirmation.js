@@ -12,8 +12,6 @@ getCardData(cardData) {
   this._card = cardData;
 }
 
-
-
 setEventListeners() {
   this._popupSubmitButton.addEventListener('click', () => {
     this._handleSubmit(this._card);

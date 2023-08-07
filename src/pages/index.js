@@ -108,7 +108,6 @@ const handleSubmitAvatar = (data) => {
 
 // функция удаления карточки
 const handleDeleteCard = (card) => {
-  function makeRequest() {}
   api.deleteCard(card.cardId)
     .then(() => {
       card.deleteCard();
